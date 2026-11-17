@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-  ChevronDown, ChevronLeft
+  ChevronDown, ChevronLeft, LayoutDashboard
 } from 'lucide-react';
-import { CURRENT_USER } from '../../constants/app.js';
+import ProfileMenu from '../ProfileMenu.jsx';
 
 function LicenseIcon({ className, ...props }) {
   return (
@@ -14,19 +14,20 @@ function LicenseIcon({ className, ...props }) {
 }
 
 const NAV_ITEMS = [
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin/' },
   {
     label: 'License',
     icon: LicenseIcon,
     defaultOpen: true,
     children: [
-      { label: 'Client License', to: '/licenses' },
+      { label: 'Client License', to: '/admin/licenses' },
       { label: 'Associated Products' }
     ]
   }
 ];
 
 function isLicenseRoute(pathname) {
-  return pathname.startsWith('/licenses');
+  return pathname.startsWith('/admin/licenses');
 }
 
 function NavGroup({ item, open, onToggle }) {
@@ -90,13 +91,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
 
   return (
     <aside className={`sidebar${mobileOpen ? ' mobile-open' : ''}`} aria-label="Main navigation">
-      <div className="user-card">
-        <img src="/user-placeholder.jpg" alt="" className="user-avatar" aria-hidden="true" />
-        <div className="user-meta">
-          <span className="user-name">{CURRENT_USER.name}</span>
-          <span className="user-email">{CURRENT_USER.email}</span>
-        </div>
-      </div>
+      <ProfileMenu />
 
       <nav className="sidebar-nav">
         <ul className="nav-list">
@@ -110,7 +105,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
               />
             ) : (
               <li key={item.label}>
-                <NavLink to={item.to} className="nav-link">
+                <NavLink to={item.to} end={item.to === '/admin/'} className="nav-link">
                   <item.icon size={18} strokeWidth={2} className="nav-icon" />
                   <span className="nav-label">{item.label}</span>
                 </NavLink>

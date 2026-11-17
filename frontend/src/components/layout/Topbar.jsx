@@ -3,21 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Bell, CheckSquare, Clock, Plus, Search, Settings, Share2
 } from 'lucide-react';
-import { CURRENT_USER } from '../../constants/app.js';
-
-function initials(name) {
-  return name
-    .split(' ')
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
-}
+import ProfileMenu from '../ProfileMenu.jsx';
 
 export default function Topbar() {
   const [query, setQuery] = useState('');
   const location = useLocation();
-  const onLicenses = location.pathname.startsWith('/licenses');
+  const onLicenses = location.pathname.startsWith('/admin/licenses');
 
   const submit = useMemo(() => (event) => event.preventDefault(), []);
 
@@ -52,9 +43,7 @@ export default function Topbar() {
         <button type="button" className="icon-btn has-dot" aria-label="Notifications">
           <Bell size={17} />
         </button>
-        <div className="topbar-avatar" title={CURRENT_USER.name} aria-label={CURRENT_USER.name}>
-          {initials(CURRENT_USER.name)}
-        </div>
+        <ProfileMenu compact />
       </div>
     </>
   );

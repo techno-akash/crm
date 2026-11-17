@@ -1,0 +1,21 @@
+.profile-menu { position:relative; z-index:80; margin-bottom:14px; min-width:0; }
+.profile-menu .profile-menu-trigger.user-card { width:calc(100% - 4px); margin:0 2px; cursor:pointer; text-align:left; font:inherit; background:#e9eaec; border:1px solid #c8cdd4; border-radius:9px; }
+.profile-menu .user-meta { overflow:hidden; }
+.profile-menu .user-name, .profile-menu .user-email { display:block; }
+.profile-menu .profile-menu-trigger:hover { background:#e2e5e9; }
+.profile-menu-trigger:focus-visible { outline:2px solid #2684ff; outline-offset:2px; }
+.profile-menu-panel { position:absolute; top:calc(100% + 10px); left:2px; right:2px; padding:5px 0; border:1px solid #d1d5db; border-radius:8px; background:white; box-shadow:0 3px 6px #1018281a; color:#19344d; }
+.profile-menu-panel [role="menuitem"] { display:flex; align-items:center; gap:2px; width:100%; padding:6px 15px; background:transparent; border:0; text-align:left; font:inherit; font-size:14px; line-height:20px; color:inherit; cursor:pointer; border-radius:3px; }
+.profile-menu-panel [role="menuitem"]:hover, .profile-menu-panel [role="menuitem"]:focus-visible { background:#f1f2f5; outline:0; }
+.profile-menu-panel [role="menuitem"][aria-disabled="true"] { opacity:.6; cursor:wait; }
+.profile-menu-language { margin:0 10px 4px 26px; padding:6px 10px; background:#f5f6f8; font-size:13px; border-radius:4px; }
+.profile-menu-error { margin:8px 14px; color:#a51f35; font-size:13px; overflow-wrap:anywhere; }
+.profile-menu--compact { margin:0; }
+.profile-menu-avatar { display:grid; place-items:center; width:32px; height:32px; border-radius:50%; border:1px solid #d4dae2; background:#e9eef5; color:#29455f; cursor:pointer; }
+.profile-menu--compact .profile-menu-panel { left:auto; right:0; min-width:210px; }
+.profile-menu-dialog { width:calc(100% - 40px); max-width:440px; padding:28px; border:1px solid #d1d5db; border-radius:10px; color:#19344d; }
+.profile-menu-dialog::backdrop { background:#17203370; }
+.profile-dialog-close { float:right; background:none; border:0; padding:0; cursor:pointer; color:inherit; }
+.profile-menu-dialog h2 { font-size:22px; margin:0 0 24px; }
+.profile-menu-dialog dt { color:#64748b; font-size:13px; margin-top:14px; }
+.profile-menu-dialog dd { margin:3px 0 0; overflow-wrap:anywhere; }

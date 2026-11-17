@@ -1,0 +1,70 @@
+.crm-login { min-height:100vh; color:#334155; font-size:14px; line-height:1.45; }
+.crm-login--admin { background:#f3f4f6; }
+.crm-login--customer { background:#f8f9fb; border-bottom:1px solid #e2e8f0; }
+.crm-login-header { height:92px; background:#fff; border-top:6px solid #53382e; border-bottom:1px solid #e2e8f0; }
+.crm-login-header-inner { max-width:1170px; height:100%; margin:0 auto; padding:0 8px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.crm-login-brand { display:block; flex-shrink:0; }
+.crm-login-brand img { width:270px; height:auto; display:block; }
+.crm-login-header nav { display:flex; align-items:center; gap:24px; }
+.crm-knowledge-link { color:#334155; border:0; background:none; font-size:14px; padding:8px 0; cursor:pointer; }
+.crm-header-login { display:flex; align-items:center; gap:8px; padding:7px 15px; border-radius:5px; background:#0860e8; color:#fff; font-weight:500; }
+.crm-login-main { margin:0 auto; text-align:center; padding-left:20px; padding-right:20px; }
+.crm-login--customer .crm-login-main { padding-top:76px; padding-bottom:60px; }
+.crm-login--admin .crm-login-main { padding-top:120px; padding-bottom:60px; }
+.crm-admin-brand img { width:385px; max-width:100%; height:auto; display:block; margin:0 auto; }
+.crm-admin-brand { margin-bottom:44px; }
+.crm-login h1 { font-size:24px; line-height:1.25; font-weight:600; margin:0 0 20px; color:#334155; }
+.crm-login--admin h1 { color:#1e293b; margin-bottom:6px; }
+.crm-login-welcome { font-size:14px; color:#526477; margin:0 0 20px; }
+.crm-login-card { width:100%; margin:0 auto; background:white; border:1px solid #d7dce2; border-radius:8px; text-align:left; box-shadow:0 1px 2px #1018280d; }
+.crm-login--customer .crm-login-card { max-width:360px; padding:24px; box-shadow:0 3px 5px #10182818; }
+.crm-login--admin .crm-login-card { max-width:400px; padding:32px; }
+.crm-login-form { display:flex; flex-direction:column; gap:16px; }
+.crm-login-field { display:flex; flex-direction:column; gap:6px; }
+.crm-login-field label { font-size:14px; font-weight:500; color:#475569; }
+.crm-login-field input, .crm-login-field select { width:100%; min-width:0; height:35px; border:1px solid #cbd2dc; border-radius:6px; padding:6px 11px; background:#f9fafb; color:#172033; font-size:14px; line-height:20px; box-shadow:0 1px 2px #1018280d; }
+.crm-login-field input { background:#fff; }
+.crm-login-field input:autofill { box-shadow:0 0 0 1000px #e8f0fe inset; }
+.crm-login-field input:focus, .crm-login-field select:focus { outline:2px solid #2984ff; outline-offset:-1px; }
+.crm-password-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.crm-login-password { position:relative; }
+.crm-login-password input { padding-right:36px; }
+.crm-login-password button { position:absolute; right:2px; top:2px; height:31px; width:32px; display:grid; place-items:center; border:0; background:transparent; color:#7a8796; cursor:pointer; border-radius:4px; }
+.crm-login-password button:hover { color:#1e293b; }
+.crm-login button:focus-visible, .crm-login a:focus-visible { outline:2px solid #2984ff; outline-offset:3px; }
+.crm-remember { display:flex; align-items:center; gap:8px; color:#475569; font-weight:400; cursor:pointer; }
+.crm-remember input { appearance:none; width:17px; height:17px; margin:0; border:1px solid #cbd5e1; border-radius:3px; background:#fff; box-shadow:0 1px 2px #1018280d; display:grid; place-content:center; flex-shrink:0; }
+.crm-remember input:checked { background:#1e293b; border-color:#1e293b; }
+.crm-remember input:checked::after { content:''; width:8px; height:4px; border-left:2px solid white; border-bottom:2px solid white; transform:translateY(-1px) rotate(-45deg); }
+.crm-remember input:focus-visible { outline:2px solid #2984ff; outline-offset:2px; }
+.crm-login-form .auth-submit { height:35px; padding:6px 12px; margin-top:8px; background:#1e2a38; color:#fff; border:1px solid #1e2a38; border-radius:7px; font-size:14px; font-weight:500; box-shadow:inset 0 1px 0 #ffffff18; }
+.crm-login-form .auth-submit:hover:not(:disabled) { background:#29394b; }
+.crm-forgot-link { color:#748194; font-size:14px; font-weight:400; }
+.crm-forgot-link:hover { text-decoration:underline; color:#334155; }
+.crm-customer-forgot { text-align:center; margin-top:-2px; }
+.crm-login--admin .crm-email-field { margin-bottom:14px; }
+.crm-login--admin .crm-login-field { gap:12px; }
+.crm-login--admin .auth-submit { height:38px; font-weight:600; margin-top:8px; }
+.crm-login-help { max-width:440px; width:calc(100% - 40px); border:1px solid #d7dce2; padding:30px; border-radius:8px; color:#334155; line-height:1.6; }
+.crm-login-help::backdrop { background:#17203370; }
+.crm-login-help h2 { margin-top:0; font-size:22px; }
+.crm-login-help a { color:#0860e8; text-decoration:underline; }
+.crm-help-close { float:right; background:none; border:0; cursor:pointer; color:#475569; }
+@media (max-width:600px) {
+  .crm-login-header { height:78px; }
+  .crm-login-header-inner { padding:0 16px; gap:12px; }
+  .crm-login-brand img { width:205px; max-width:48vw; }
+  .crm-login-header nav { gap:12px; }
+  .crm-knowledge-link { font-size:12px; }
+  .crm-header-login { padding:7px 10px; }
+  .crm-login--customer .crm-login-main { padding-top:48px; }
+  .crm-login--admin .crm-login-main { padding-top:64px; }
+  .crm-admin-brand { margin-bottom:36px; }
+  .crm-admin-brand img { max-width:320px; width:100%; }
+  .crm-login--admin .crm-login-card { padding:26px 24px; }
+}
+@media (max-width:380px) {
+  .crm-login-header-inner { padding:0 10px; gap:8px; }
+  .crm-login-header nav { gap:8px; }
+  .crm-login-brand img { max-width:43vw; }
+}

@@ -177,7 +177,7 @@ export default function LicenseFormPage({ mode }) {
         await createLicense(payload);
         toast('License created successfully');
       }
-      navigate('/licenses');
+      navigate('/admin/licenses');
     } catch (err) {
       setFormError(err.errors?.length ? err.errors.join(', ') : err.message || 'Save failed');
     } finally {
@@ -321,7 +321,7 @@ export default function LicenseFormPage({ mode }) {
         <hr className="form-divider" />
 
         <div className="form-actions">
-          <Link to="/licenses" className="btn btn-primary">
+          <Link to="/admin/licenses" className="btn btn-primary">
             <ArrowLeft size={15} /> Back
           </Link>
           <button type="submit" className="btn btn-primary" disabled={saving}>

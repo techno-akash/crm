@@ -13,7 +13,6 @@ const config = require('./config');
 const connectDb = require('./config/db');
 const logger = require('./utils/logger');
 const licenseRoutes = require('./routes/licenseRoutes');
-const adminLicenseRoutes = require('./routes/adminLicenseRoutes');
 
 const allowedOrigins = (process.env.CORS_ORIGINS || '')
   .split(',')
@@ -33,7 +32,7 @@ function cors(req, res, next) {
 }
 
 function redactLicenseKey(url) {
-  return url.replace(/([?&]key=)[^&]*/i, '$1[Redacted]');
+  return url.replace(/([?&](?:key|token|tempToken|code)=)[^&]*/gi, '$1[Redacted]');
 }
 
 const app = express();
@@ -41,6 +40,7 @@ app.disable('x-powered-by');
 app.set('trust proxy', config.trustProxy);
 app.use(helmet());
 app.use(compression());
+app.use(require('./routes/auth.routes'));
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: false, limit: '100kb' }));
 app.use(mongoSanitize());
@@ -66,7 +66,6 @@ app.use(cors);
 
 app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
 app.use('/api/license_validate', licenseRoutes);
-app.use('/api/licenses', adminLicenseRoutes);
 
 const frontendDist = path.resolve(__dirname, '..', 'frontend', 'dist');
 if (config.nodeEnv === 'production' && fs.existsSync(frontendDist)) {

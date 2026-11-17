@@ -1,10 +1,10 @@
 const express = require('express');
-const auth = require('../middleware/auth');
+const { requireAuth, requireRole } = require('../middleware/auth.middleware');
 const controller = require('../controllers/licenseAdminController');
 
 const router = express.Router();
 
-router.use(auth);
+router.use(requireAuth, requireRole('staff'));
 
 router.get('/', controller.listLicenses);
 router.get('/export', controller.exportLicenses);

@@ -188,7 +188,7 @@ export default function LicensesPage() {
     <div className="page">
       <div className="page-head">
         <h1 className="page-title">Licenses</h1>
-        <Link to="/licenses/new" className="btn btn-primary">+ New License</Link>
+        <Link to="/admin/licenses/new" className="btn btn-primary">+ New License</Link>
       </div>
 
       {selected.size > 0 && (
@@ -316,7 +316,7 @@ export default function LicensesPage() {
                     <td className="col-id">{rowNumber}</td>
                     <td className="col-name">
                       <span className="row-link">{row.name}</span>
-                      <Link to={`/licenses/${id}/edit`} className="row-edit-link">Edit</Link>
+                      <Link to={`/admin/licenses/${id}/edit`} className="row-edit-link">Edit</Link>
                     </td>
                     <td>{row.productName || '—'}</td>
                     <td>{row.projectName || '—'}</td>

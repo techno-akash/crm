@@ -44,7 +44,7 @@ export default function Layout() {
           >
             <Menu size={20} />
           </button>
-          <Link to="/" className="brand">
+          <Link to="/admin/" className="brand">
             <img src="/logo.png" alt="Technocrats Horizons" className="brand-logo" />
           </Link>
         </div>

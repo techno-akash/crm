@@ -1,4 +1,3 @@
-const API_KEY = import.meta.env.VITE_API_KEY || '';
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 export class ApiError extends Error {
@@ -19,9 +18,9 @@ async function request(path, { method = 'GET', body, params, headers, raw = fals
 
   const config = {
     method,
+    credentials: 'include',
     headers: {
       ...(body ? { 'Content-Type': 'application/json' } : {}),
-      ...(API_KEY ? { Authorization: `Bearer ${API_KEY}` } : {}),
       ...headers
     },
     ...(body ? { body: JSON.stringify(body) } : {})
@@ -29,7 +28,7 @@ async function request(path, { method = 'GET', body, params, headers, raw = fals
 
   const response = await fetch(url, config);
 
-  if (raw) return response;
+  if (raw && response.ok) return response;
 
   const contentType = response.headers.get('content-type') || '';
   const payload = contentType.includes('application/json') ? await response.json() : null;
