@@ -1,3 +1,6 @@
+const path = require('node:path');
+const fs = require('node:fs');
+
 require('dotenv').config();
 
 const express = require('express');
@@ -10,6 +13,24 @@ const config = require('./config');
 const connectDb = require('./config/db');
 const logger = require('./utils/logger');
 const licenseRoutes = require('./routes/licenseRoutes');
+const adminLicenseRoutes = require('./routes/adminLicenseRoutes');
+
+const allowedOrigins = (process.env.CORS_ORIGINS || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+function cors(req, res, next) {
+  const origin = req.get('origin');
+  if (origin && (allowedOrigins.length === 0 || allowedOrigins.includes(origin))) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  }
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  return next();
+}
 
 function redactLicenseKey(url) {
   return url.replace(/([?&]key=)[^&]*/i, '$1[Redacted]');
@@ -20,8 +41,8 @@ app.disable('x-powered-by');
 app.set('trust proxy', config.trustProxy);
 app.use(helmet());
 app.use(compression());
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: false, limit: '10kb' }));
+app.use(express.json({ limit: '100kb' }));
+app.use(express.urlencoded({ extended: false, limit: '100kb' }));
 app.use(mongoSanitize());
 app.use(pinoHttp({
   logger,
@@ -41,9 +62,33 @@ app.use(pinoHttp({
 }));
 app.use(rateLimit({ windowMs: config.rateLimitWindowMs, limit: config.rateLimitMax, standardHeaders: 'draft-8', legacyHeaders: false }));
 
+app.use(cors);
+
 app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
 app.use('/api/license_validate', licenseRoutes);
+app.use('/api/licenses', adminLicenseRoutes);
+
+const frontendDist = path.resolve(__dirname, '..', 'frontend', 'dist');
+if (config.nodeEnv === 'production' && fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist, { maxAge: '1h', index: false }));
+  app.get(/^(?!\/api|\/health).*/, (req, res) => {
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+}
+
 app.use((req, res) => res.status(404).json({ status: 'error', message: 'Route not found' }));
+
+// eslint-disable-next-line no-unused-vars
+app.use((error, req, res, next) => {
+  const status = Number.isInteger(error.status) ? error.status : 500;
+  const expose = config.nodeEnv !== 'production';
+  logger.error({ err: { message: error.message, stack: expose ? error.stack : undefined, status } }, 'Unhandled request error');
+  if (res.headersSent) return;
+  res.status(status).json({
+    status: 'error',
+    message: status < 500 || expose ? error.message : 'Internal server error'
+  });
+});
 
 async function start() {
   await connectDb(config.mongoUri);
