@@ -28,6 +28,11 @@ test('rejects missing and invalid authorization before lookup', async (t) => {
     assert.deepEqual(response.body, { status: 'unauthorized', error: 'Invalid API key' });
     assert.equal(response.status, 401);
   });
+  await t.test('invalid raw key', async () => {
+    const response = await request(app).get(endpoint).set('Authorization', 'wrong');
+    assert.deepEqual(response.body, { status: 'unauthorized', error: 'Invalid API key' });
+    assert.equal(response.status, 401);
+  });
   assert.equal(called, false);
 });
 
@@ -46,7 +51,7 @@ test('returns not found when aggregation is empty', async () => {
   assert.equal(response.status, 404);
 });
 
-test('returns the exact successful response shape', async () => {
+test('accepts a raw API key and returns the exact successful response shape', async () => {
   mockAggregate([{
     licenkey: 'ABC123',
     expiry_date: '2027-11-05',
@@ -55,7 +60,7 @@ test('returns the exact successful response shape', async () => {
     customer: { company: 'Admin' },
     primaryContact: { email: 'admin@example.com' }
   }]);
-  const response = await request(app).get(endpoint).set('Authorization', 'Bearer existing-api-key');
+  const response = await request(app).get(endpoint).set('Authorization', 'existing-api-key');
   assert.equal(response.status, 200);
   assert.deepEqual(response.body, {
     key: 'ABC123', expiry_date: '2027-11-05', user_name: 'Admin', user_email: 'admin@example.com',

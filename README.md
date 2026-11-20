@@ -40,9 +40,11 @@ GET /api/license_validate/get_license_details?key=ABC123
 ```
 
 ```bash
-curl -H "Authorization: Bearer $API_KEY" \
+curl -H "Authorization: $API_KEY" \
   "http://localhost:3000/api/license_validate/get_license_details?key=ABC123"
 ```
+
+The `Authorization` header also accepts `Bearer <API key>`.
 
 Successful response:
 
